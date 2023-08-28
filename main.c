@@ -1,5 +1,14 @@
 #include "monty.h"
 
+/**
+ * push - Pushes an element onto the stack.
+ * @stack: Pointer to the top of the stack.
+ * @line_number: The current line number being processed.
+ *
+ * Description: This function adds a new integer element to the top of the stack.
+ * If the value provided is not a valid integer, an error message is displayed.
+ */
+
 void push(stack_t **stack, unsigned int line_number)
 {
     int value;
@@ -30,6 +39,16 @@ void push(stack_t **stack, unsigned int line_number)
         exit(EXIT_FAILURE);
     }
 }
+
+/**
+ * pall - Prints all elements in the stack.
+ * @stack: Pointer to the top of the stack.
+ * @line_number: The current line number being processed.
+ *
+ * Description: This function prints all the integer elements in the stack,
+ * starting from the top. If the stack is empty, nothing is printed.
+ * Each element is printed on a new line.
+ */
 
 void pall( stack_t **stack, unsigned int line_number)
 {
