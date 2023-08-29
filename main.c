@@ -1,64 +1,58 @@
 #include "monty.h"
 
-/**
- * push - Pushes an element onto the stack.
- * @stack: Pointer to the top of the stack.
- * @line_number: The current line number being processed.
- *
- * Description: This function adds a new integer element to the top of the stack.
- * If the value provided is not a valid integer, an error message is displayed.
- */
-
-void push(stack_t **stack, unsigned int line_number)
+int main(int argc, char *argv[])
 {
-    int value;
-
-    if (scanf("%d", &value) == 1)
+    if (argc != 2)
     {
-        stack_t *new_Node = malloc(sizeof(stack_t));
-        if (!new_Node)
+        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+        return EXIT_FAILURE;
+    }
+
+    FILE *file = fopen(argv[1], "r");
+    if (file == NULL)
+    {
+        perror("Error opening file");
+        return EXIT_FAILURE;
+    }
+
+    stack_t *stack = NULL;
+    char line[100];
+    unsigned int line_number = 1;
+
+    while (fgets(line, sizeof(line), file))
+    {
+        line[strcspn(line, "\n")] = '\0';
+
+        char *opcode = strtok(line, " ");
+        if (opcode != NULL)
         {
-            fprintf(stderr, "Error: malloc failed\n");
-            exit(EXIT_FAILURE);
+            if (strcmp(opcode, "push") == 0)
+            {
+                char *arg = strtok(NULL, " ");
+                if (arg == NULL)
+                {
+                    printf("L%u: usage: push integer\n", line_number);
+                    return (EXIT_FAILURE);
+                }
+
+                int value = atoi(arg);
+                if (value == 0 && strcmp(arg, "0") != 0)
+                {
+                    printf("L%u: usage: push integer\n", line_number);
+                    return (EXIT_FAILURE);
+                }
+
+                push(&stack, line_number);
+            }
+            else if (strcmp(opcode, "pall") == 0)
+            {
+                pall(&stack, line_number);
+            }
         }
 
-        new_Node->n = value;
-        new_Node->prev = NULL;
-        new_Node->next = *stack;
-
-        if (*stack != NULL)
-        {
-            (*stack)->prev = new_Node;
-        }
-
-        *stack = new_Node;
+        line_number++;
     }
-    else
-    {
-        fprintf(stderr, "Error: L%u: usage: push integer\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+
+    fclose(file);
+    return (EXIT_SUCCESS);
 }
-
-/**
- * pall - Prints all elements in the stack.
- * @stack: Pointer to the top of the stack.
- * @line_number: The current line number being processed.
- *
- * Description: This function prints all the integer elements in the stack,
- * starting from the top. If the stack is empty, nothing is printed.
- * Each element is printed on a new line.
- */
-
-void pall( stack_t **stack, unsigned int line_number)
-{
-    (void)line_number;
-    stack_t *current = *stack;
-
-    while (current != NULL)
-    {
-        printf("%d\n", current->n);
-        current = current->next;
-    }
-}
-
