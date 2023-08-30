@@ -1,7 +1,6 @@
 #include "monty.h"
 
-void
-_push(stack_t **stack, unsigned int line_number)
+void _push(stack_t **stack, unsigned int line_number)
 {
 	char *token = strtok(NULL, DELIM);
 	stack_t *line;
@@ -32,8 +31,7 @@ _push(stack_t **stack, unsigned int line_number)
 	*stack = line;
 }
 
-void
-_pall(stack_t **stack, unsigned int line_number)
+void _pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *line = *stack;
 	(void)line_number;
@@ -53,6 +51,11 @@ _pall(stack_t **stack, unsigned int line_number)
 
 void _pint(stack_t **stack, unsigned int line_number)
 {
+	if (!(*stack))
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit;
+	}
 	stack_t *line = *stack;
 	(void)line_number;
 	printf("%d\n", line->n);
