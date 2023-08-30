@@ -6,6 +6,8 @@ int main(int argc, char *argv[])
     char line[100];
     unsigned int line_number = 1;
     int value;
+    char *opcode;
+    char *arg;
 
     if (argc != 2)
     {
@@ -24,12 +26,12 @@ int main(int argc, char *argv[])
     {
         line[strcspn(line, "\n")] = '\0';
 
-        char *opcode = strtok(line, " ");
+        *opcode = strtok(line, " ");
         if (opcode != NULL)
         {
             if (strcmp(opcode, "push") == 0)
             {
-                char *arg = strtok(NULL, " ");
+                *arg = strtok(NULL, " ");
                 if (arg == NULL)
                 {
                     printf("L%u: usage: push integer\n", line_number);

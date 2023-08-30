@@ -1,20 +1,20 @@
 #include "monty.h"
 
 /**
- * push - Pushes an element onto the stack.
- * @stack: Pointer to the top of the stack.
- * @line_number: The current line number being processed.
- *
- * Description: This function adds a new integer element to the top of the stack.
- * If the value provided is not a valid integer, an error message is displayed.
- */
+* push - Pushes an element onto the stack.
+* @stack: Pointer to the top of the stack.
+* @line_number: The current line number being processed.
+*
+* Description: This function adds a new integer element to the top of the stack.
+* If the value provided is not a valid integer, an error message is displayed.
+*/
 
 void push(stack_t **stack, unsigned int line_number)
 {
-    int value;
+	int value;
 
-    if (scanf("%d", &value) == 1)
-    {
+	if (scanf("%d", &value) == 1)
+	{
 		stack_t *new_Node = malloc(sizeof(stack_t));
 		if (!new_Node)
 		{
