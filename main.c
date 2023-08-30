@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     FILE *file = fopen(argv[1], "r");
     if (file == NULL)
     {
-        perror("Error: Can't open file <file>");
+        perror("Error: Can't open file");
         return (EXIT_FAILURE);
     }
 
@@ -35,14 +35,14 @@ int main(int argc, char *argv[])
                 if (arg == NULL)
                 {
                     printf("L%u: usage: push integer\n", line_number);
-                    return (EXIT_FAILURE);
+                    continue;
                 }
 
                 value = atoi(arg);
                 if (value == 0 && strcmp(arg, "0") != 0)
                 {
                     printf("L%u: usage: push integer\n", line_number);
-                    return (EXIT_FAILURE);
+                    continue;
                 }
 
                 push(&stack, line_number);
