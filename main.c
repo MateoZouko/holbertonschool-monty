@@ -1,6 +1,7 @@
 #include "monty.h"
 
-void (*get_func(char *op))(stack_t **stack, unsigned int line_number)
+void
+(*get_func(char *op))(stack_t **stack, unsigned int line_number)
 {
 	int i;
 
@@ -17,7 +18,8 @@ void (*get_func(char *op))(stack_t **stack, unsigned int line_number)
 	return (func[i].f);
 }
 
-int main(int argc, char **argv)
+int
+main(int argc, char **argv)
 {
 	char *line = NULL, *token = NULL;
 	unsigned int line_number = 0;
