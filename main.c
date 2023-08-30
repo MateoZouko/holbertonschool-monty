@@ -9,7 +9,7 @@ void
 		{"push", _push},
 		{"pall", _pall},
 		{"pint", _pint},
-		{"pop", _pop},
+		{"pint", _swap},
 		{NULL, NULL},
 	};
 	for (i = 0; func[i].opcode != NULL; i++)
@@ -58,3 +58,4 @@ main(int argc, char **argv)
 
 	return (0);
 }
+
