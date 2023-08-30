@@ -1,64 +1,67 @@
 #include "monty.h"
 
-int main(int argc, char *argv[])
+/**
+ * get_func - Searches for a function that matches an operator
+ * @op: Operator to search for
+ *
+ * Return: Returns a pointer to the corresponding function
+ */
+void (*get_func(char *op))(stack_t **stack, unsigned int line_number)
 {
+	int i;
+
+	instruction_t func[] = {
+		{"push", _push},
+		{"pall", _pall},
+		{NULL, NULL},
+	};
+	for (i = 0; func[i].opcode != NULL; i++)
+	{
+		if (strcmp(func[i].opcode, op) == 0)
+			return (func[i].f);
+	}
+	return (func[i].f);
+}
+/**
+ * main - entry point for the Monty bytecode interpreter
+ * @argc: number of arguments passed to the program
+ * @argv: array of strings containing the arguments
+ *Return: 0 upon successful completion of the program
+ */
+int main(int argc, char **argv)
+{
+	char *line = NULL, *token = NULL;
+	unsigned int line_number = 0;
 	stack_t *stack = NULL;
-	char *line = NULL;
+	FILE *input_file = NULL;
 	size_t line_size = 0;
-	unsigned int line_number = 1;
-	int value;
-	char *opcode;
-	char *arg;
+	void (*op_func)(stack_t **stack, unsigned int line_number);
 
 	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: montyfile file\n");
-		return (EXIT_FAILURE);
-	}
+		fprintf(stderr, "USAGE: monty file\n"), exit(EXIT_FAILURE);
 
-	FILE *file = fopen(argv[1], "r");
-	if (file == NULL)
+	input_file = fopen(argv[1], "r");
+	if (!input_file)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
-
-	while (getline(&line, &line_size, file) != -1)
+	while (getline(&line, &line_size, input_file) != -1)
 	{
-		line[strcspn(line, "\n")] = '\0';
-
-		opcode = strtok(line, " ");
-		if (opcode != NULL)
-		{
-			if (strcmp(opcode, "push") == 0)
-			{
-				arg = strtok(NULL, " ");
-				if (arg == NULL)
-				{
-					printf("L%u: usage: push integer\n", line_number);
-					continue;
-				}
-
-				value = atoi(arg);
-				if (value == 0 && strcmp(arg, "0") != 0)
-				{
-					printf("L%u: usage: push integer\n", line_number);
-					continue;
-				}
-
-				push(&stack, line_number);
-			}
-			else if (strcmp(opcode, "pall") == 0)
-			{
-				pall(&stack, line_number);
-			}
-		}
-
 		line_number++;
-	}
+		token = strtok(line, DELIM);
+		if (!token)
+			continue;
 
-	fclose(file);
-	if (line)
-		free(line);
-	return (EXIT_SUCCESS);
+		op_func = get_func(token);
+		if (!op_func)
+		{
+			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token);
+			exit(EXIT_FAILURE);
+		}
+		op_func(&stack, line_number);
+	}
+	fclose(input_file), free(token), frees(stack);
+
+	return (0);
 }

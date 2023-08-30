@@ -1,64 +1,58 @@
 #include "monty.h"
 
 /**
-* push - Pushes an element onto the stack.
-* @stack: Pointer to the top of the stack.
-* @line_number: The current line number being processed.
-*
-* Description: This function adds a new integer element to the top of the stack.
-* If the value provided is not a valid integer, an error message is displayed.
-*/
+ * _push - Adds a new node at the beginning of a stack_t stack.
+ *
+ * @stack: Double pointer to the head of the stack.
+ * @line_number: The current line number in the Monty bytecode file.
+ *
+ * Return: Nothing.
+ */
 
-void push(stack_t **stack, unsigned int line_number)
+void _push(stack_t **stack, unsigned int line_number)
 {
-	int value;
+	char *token = strtok(NULL, DELIM);
+	stack_t *line;
+	int n2 = 0;
 
-	if (scanf("%d", &value) == 1)
+	line = malloc(sizeof(stack_t));
+	if (!line)
 	{
-		stack_t *new_Node = malloc(sizeof(stack_t));
-		if (!new_Node)
-		{
-			fprintf(stderr, "Error: malloc failed\n");
-			exit(EXIT_FAILURE);
-		}
-
-		new_Node->n = value;
-		new_Node->prev = NULL;
-		new_Node->next = *stack;
-
-		if (*stack != NULL)
-		{
-			(*stack)->prev = new_Node;
-		}
-
-		*stack = new_Node;
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
 	}
-	else
+	if (!token || _digit(token) == 0 || !stack)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
+
+	n2 = atoi(token);
+
+	line->n = n2;
+	line->prev = NULL;
+	line->next = *stack;
+
+	if (line->next != NULL)
+	{
+		(line->next)->prev = line;
+	}
+	*stack = line;
 }
 
 /**
- * pall - Prints all elements in the stack.
- * @stack: Pointer to the top of the stack.
- * @line_number: The current line number being processed.
- *
- * Description: This function prints all the integer elements in the stack,
- * starting from the top. If the stack is empty, nothing is printed.
- * Each element is printed on a new line.
+ * _pall - prints all the elements in the stack
+ * @stack: double pointer to the head of the stack
+ * @line_number: line number of the opcode in the Monty bytecodes file
+ * Return: void
  */
-
-void pall(stack_t **stack, unsigned int line_number)
+void _pall(stack_t **stack, unsigned int line_number)
 {
+	stack_t *line = *stack;
 	(void)line_number;
-	stack_t *current = *stack;
-
-	while (current != NULL)
+	while (line)
 	{
-		printf("%d\n", current->n);
-		current = current->next;
+		printf("%d\n", line->n);
+		line = line->prev;
 	}
 }
-
