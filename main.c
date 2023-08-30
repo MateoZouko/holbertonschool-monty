@@ -2,22 +2,23 @@
 
 int main(int argc, char *argv[])
 {
+    stack_t *stack = NULL;
+    char line[100];
+    unsigned int line_number = 1;
+    int value;
+
     if (argc != 2)
     {
         fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
-        return EXIT_FAILURE;
+        return (EXIT_FAILURE);
     }
 
     FILE *file = fopen(argv[1], "r");
     if (file == NULL)
     {
-        perror("Error opening file");
-        return EXIT_FAILURE;
+        perror("Error: Can't open file <file>");
+        return (EXIT_FAILURE);
     }
-
-    stack_t *stack = NULL;
-    char line[100];
-    unsigned int line_number = 1;
 
     while (fgets(line, sizeof(line), file))
     {
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
                     return (EXIT_FAILURE);
                 }
 
-                int value = atoi(arg);
+                value = atoi(arg);
                 if (value == 0 && strcmp(arg, "0") != 0)
                 {
                     printf("L%u: usage: push integer\n", line_number);
