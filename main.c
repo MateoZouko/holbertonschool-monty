@@ -9,6 +9,7 @@ void
 		{"push", _push},
 		{"pall", _pall},
 		{"pint", _pint},
+		{"pop", _pop},
 		{NULL, NULL},
 	};
 	for (i = 0; func[i].opcode != NULL; i++)
