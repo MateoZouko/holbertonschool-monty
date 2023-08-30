@@ -8,6 +8,7 @@ void
 	instruction_t func[] = {
 		{"push", _push},
 		{"pall", _pall},
+		{"pint", _pint},
 		{NULL, NULL},
 	};
 	for (i = 0; func[i].opcode != NULL; i++)
