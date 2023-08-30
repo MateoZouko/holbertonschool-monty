@@ -43,3 +43,17 @@ _pall(stack_t **stack, unsigned int line_number)
 		line = line->prev;
 	}
 }
+
+/**
+ *	_pint - prints the value at the top of the stack
+ *	@stack: doble pointer to the head of the stack
+ *	@line_number: line number of the opcode in the Monty bytecodes file
+ *	Return: void
+ */
+
+void _pint(stack_t **stack, unsigned int line_number)
+{
+	stack_t *line = *stack;
+	(void)line_number;
+	printf("%d\n", line->n);
+}
