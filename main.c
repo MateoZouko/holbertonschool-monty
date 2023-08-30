@@ -4,7 +4,7 @@ int main(int argc, char *argv[])
 {
     stack_t *stack = NULL;
     char line[100];
-    unsigned int line_number = 1;
+    unsigned int line_number = 0;
     int value;
     char *opcode;
     char *arg;
