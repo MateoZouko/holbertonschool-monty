@@ -26,12 +26,12 @@ int main(int argc, char *argv[])
     {
         line[strcspn(line, "\n")] = '\0';
 
-        *opcode = strtok(line, " ");
+        opcode = strtok(line, " ");
         if (opcode != NULL)
         {
             if (strcmp(opcode, "push") == 0)
             {
-                *arg = strtok(NULL, " ");
+                arg = strtok(NULL, " ");
                 if (arg == NULL)
                 {
                     printf("L%u: usage: push integer\n", line_number);
