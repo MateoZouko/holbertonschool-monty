@@ -44,5 +44,7 @@ typedef struct instruction_s
 
 void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
+int _digit(char string[]);
+void frees(stack_t *stack);
 
 #endif

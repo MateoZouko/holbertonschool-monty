@@ -1,11 +1,5 @@
 #include "monty.h"
 
-/**
- * get_func - Searches for a function that matches an operator
- * @op: Operator to search for
- *
- * Return: Returns a pointer to the corresponding function
- */
 void (*get_func(char *op))(stack_t **stack, unsigned int line_number)
 {
 	int i;
@@ -22,12 +16,7 @@ void (*get_func(char *op))(stack_t **stack, unsigned int line_number)
 	}
 	return (func[i].f);
 }
-/**
- * main - entry point for the Monty bytecode interpreter
- * @argc: number of arguments passed to the program
- * @argv: array of strings containing the arguments
- *Return: 0 upon successful completion of the program
- */
+
 int main(int argc, char **argv)
 {
 	char *line = NULL, *token = NULL;
@@ -61,7 +50,7 @@ int main(int argc, char **argv)
 		}
 		op_func(&stack, line_number);
 	}
-	fclose(input_file), free(token), free(stack);
+	fclose(input_file), free(token), frees(stack);
 
 	return (0);
 }

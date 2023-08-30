@@ -1,14 +1,5 @@
 #include "monty.h"
 
-/**
- * _push - Adds a new node at the beginning of a stack_t stack.
- *
- * @stack: Double pointer to the head of the stack.
- * @line_number: The current line number in the Monty bytecode file.
- *
- * Return: Nothing.
- */
-
 void _push(stack_t **stack, unsigned int line_number)
 {
 	char *token = strtok(NULL, DELIM);
@@ -21,7 +12,7 @@ void _push(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	if (!token || isdigit(token) == 0 || !stack)
+	if (!token || _digit(token) == 0 || !stack)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -40,12 +31,6 @@ void _push(stack_t **stack, unsigned int line_number)
 	*stack = line;
 }
 
-/**
- * _pall - prints all the elements in the stack
- * @stack: double pointer to the head of the stack
- * @line_number: line number of the opcode in the Monty bytecodes file
- * Return: void
- */
 void _pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *line = *stack;
