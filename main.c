@@ -10,6 +10,7 @@ void
 		{"pall", _pall},
 		{"pint", _pint},
 		{"pint", _swap},
+		{"pint", _pop},
 		{NULL, NULL},
 	};
 	for (i = 0; func[i].opcode != NULL; i++)
