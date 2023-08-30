@@ -40,7 +40,7 @@ _pall(stack_t **stack, unsigned int line_number)
 	while (line)
 	{
 		printf("%d\n", line->n);
-		line = line->prev;
+		line = line->next;
 	}
 }
 
