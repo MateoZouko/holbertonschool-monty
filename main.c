@@ -34,9 +34,11 @@ main(int argc, char **argv)
 	void (*op_func)(stack_t **stack, unsigned int line_number);
 
 	if (argc != 2)
+	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
-
+	}
+	
 	input_file = fopen(argv[1], "r");
 	if (!input_file)
 	{
