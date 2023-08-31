@@ -63,3 +63,78 @@ void _pint(stack_t **stack, unsigned int line_number)
 	printf("%d\n", line->n);
 }
 
+/**
+ *	_swap - swaps the top two elements of the stack
+ *	@stack: doble pointer to the head of the stack
+ *	@line_number: line number of the opcode in the Monty bytecodes file
+ *	Return: void
+ */
+void _swap(stack_t **stack, unsigned int line_number)
+{
+	int x;
+
+	if (!(*stack) || !(*stack)->next)
+	{
+		fprintf(stderr, "L%d can't swap, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	x = (*stack)->n;
+	(*stack)->n = (*stack)->next->n;
+	(*stack)->next->n = x;
+}
+
+/**
+ *	_pop -  removes the top element of the stack
+ *	@stack: doble pointer to the head of the stack
+ *	@line_number: line number of the opcode in the Monty bytecodes file
+ *	Return: void
+ */
+void _pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp = *stack;
+
+	if (!stack || !(*stack))
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	if (tmp->next == NULL)
+	{
+		free(tmp);
+		*stack = NULL;
+	}
+	tmp = (*stack)->next;
+}
+
+/**
+ *	_add - adds the top two elements of the stack
+ *	@stack: doble pointer to the head of the stack
+ *	@line_number: line number of the opcode in the Monty bytecodes file
+ *	Return: void
+ */
+void _add(stack_t **stack, unsigned int line_number)
+{
+    stack_t *line = *stack;
+	int sum;
+	(void)line_number;
+
+    if (line == NULL || line->next == NULL)
+    {
+        fprintf(stderr, "L%s: can't add, stack too short\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+
+    sum = temp->n + line->next->n;
+	_pop(stack);
+	line->n = sum;
+}
+/**
+ *	_nop - doesn’t do anything
+ *	@stack: doble pointer to the head of the stack
+ *	@line_number: line number of the opcode in the Monty bytecodes file
+ *	Return: void
+ */
+void _nop(stack_t **stack, unsigned int line_number)
+{
+
+}
