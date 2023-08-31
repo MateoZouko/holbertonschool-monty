@@ -120,13 +120,14 @@ void _add(stack_t **stack, unsigned int line_number)
 
     if (line == NULL || line->next == NULL)
     {
-        fprintf(stderr, "L%s: can't add, stack too short\n", line_number);
+        fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
         exit(EXIT_FAILURE);
     }
 
-    sum = temp->n + line->next->n;
-	_pop(stack);
-	line->n = sum;
+    sum = line->n + line->next->n;
+	*stack = line->next;
+	free(line);
+	(*stack)->n = sum;
 }
 /**
  *	_nop - doesn’t do anything
@@ -134,7 +135,7 @@ void _add(stack_t **stack, unsigned int line_number)
  *	@line_number: line number of the opcode in the Monty bytecodes file
  *	Return: void
  */
-void _nop(stack_t **stack, unsigned int line_number)
+void _nop(stack_t __attribute__((unused)) **stack, unsigned int __attribute__((unused)) line_number)
 {
 
 }
