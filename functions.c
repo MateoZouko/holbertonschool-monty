@@ -84,11 +84,11 @@ void _swap(stack_t **stack, unsigned int line_number)
 }
 
 /**
- *	_pop -  removes the top element of the stack
- *	@stack: doble pointer to the head of the stack
- *	@line_number: line number of the opcode in the Monty bytecodes file
- *	Return: void
- */
+*	_pop -  removes the top element of the stack
+*	@stack: doble pointer to the head of the stack
+*	@line_number: line number of the opcode in the Monty bytecodes file
+*	Return: void
+*/
 void _pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp = *stack;
@@ -107,35 +107,36 @@ void _pop(stack_t **stack, unsigned int line_number)
 }
 
 /**
- *	_add - adds the top two elements of the stack
- *	@stack: doble pointer to the head of the stack
- *	@line_number: line number of the opcode in the Monty bytecodes file
- *	Return: void
- */
+*	_add - adds the top two elements of the stack
+*	@stack: doble pointer to the head of the stack
+*	@line_number: line number of the opcode in the Monty bytecodes file
+*	Return: void
+*/
 void _add(stack_t **stack, unsigned int line_number)
 {
-    stack_t *line = *stack;
+	stack_t *line = *stack;
 	int sum;
 	(void)line_number;
 
-    if (line == NULL || line->next == NULL)
-    {
-        fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	if (line == NULL || line->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
-    sum = line->n + line->next->n;
+	sum = line->n + line->next->n;
 	*stack = line->next;
 	free(line);
 	(*stack)->n = sum;
 }
 /**
- *	_nop - doesn’t do anything
- *	@stack: doble pointer to the head of the stack
- *	@line_number: line number of the opcode in the Monty bytecodes file
- *	Return: void
- */
-void _nop(stack_t __attribute__((unused)) **stack, unsigned int __attribute__((unused)) line_number)
+*_nop - doesn’t do anything
+*@stack: doble pointer to the head of the stack
+*@line_number: line number of the opcode in the Monty bytecodes file
+*Return: void
+*/
+void
+_nop(stack_t __attribute__((unused)) **stack, unsigned int line_number)
 {
-
+	(void)line_number;
 }
