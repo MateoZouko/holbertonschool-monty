@@ -9,8 +9,10 @@ void
 		{"push", _push},
 		{"pall", _pall},
 		{"pint", _pint},
-		{"pint", _swap},
-		{"pint", _pop},
+		{"swap", _swap},
+		{"pop", _pop},
+		{"add", _add},
+		{"nop", _nop},
 		{NULL, NULL},
 	};
 	for (i = 0; func[i].opcode != NULL; i++)
@@ -32,7 +34,8 @@ main(int argc, char **argv)
 	void (*op_func)(stack_t **stack, unsigned int line_number);
 
 	if (argc != 2)
-		fprintf(stderr, "USAGE: monty file\n"), exit(EXIT_FAILURE);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 
 	input_file = fopen(argv[1], "r");
 	if (!input_file)
